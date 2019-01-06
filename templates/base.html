@@ -1,0 +1,32 @@
+{% extends 'bootstrap4/bootstrap4.html' %}
+{% load bootstrap4 static %}
+{% block bootstrap4_extra_head %}
+    <link rel="stylesheet" type="text/css" href="{% static "nkrsistyle.css" %}">
+    {% block extra_head %}{% endblock %}
+    <title>NKRSI System</title>
+{% endblock %}
+{% block bootstrap4_content %}
+    <nav class="navbar navbar-expand-md navbar-dark fixed-top bg-dark">
+        <a class="navbar-brand" href="#">NKRSI</a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarCollapse"
+                aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarCollapse">
+            <ul class="navbar-nav mr-auto">
+                <li class="nav-item active">
+                    <a class="nav-link" href="#">Strona Główna</a>
+                </li>
+                {% if request.user.is_staff %}
+                <li class="nav-item">
+                    <a class="nav-link" href="admin">Panel Administratora</a>
+                </li>
+                {% endif %}
+            </ul>
+        </div>
+    </nav>
+    <div class="container content">
+        {% autoescape off %}{% bootstrap_messages %}{% endautoescape %}
+        {% block content %}(no content){% endblock %}
+    </div>
+{% endblock %}

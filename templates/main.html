@@ -1,0 +1,40 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block content %}
+    <div class="row">
+        {% for link in links %}
+            <div class="col-md-4 col-sm-6">
+                {% if link.type == 2 %}
+                    <a href="#" onclick="myFunction('{{ link.url }}')">
+                {% else %}
+                    <a href="{{ link.url }}">
+                {% endif %}
+                <div class="card" style="background-color: {{ link.bgcolor }}; color: {{ link.textcolor }}">
+                    <div class="card-body">
+                        <h5 class="card-title">{{ link.title }}</h5>
+                        <p class="card-text">{{ link.description }}</p>
+                        <img class="card_img" src="{% static "icon/"|add:link.icon %}"
+                             alt="{{ link.icon }}">
+                    </div>
+                </div>
+                </a>
+            </div>
+        {% endfor %}
+    </div>
+{% endblock %}
+{% block bootstrap4_extra_script %}
+    <script>
+        function myFunction(link) {
+            $.ajax({
+                url: link,
+                dataType: 'json',
+                success: function (data) {
+                    console.log(data.ok);
+                    if (!data.ok) {
+                        alert("Something went wrong!");
+                    }
+                }
+            });
+        }
+    </script>
+{% endblock %}

@@ -1,2 +1,7 @@
+requests
+pypjlink
 django
 psycopg2
+django-bootstrap4
+django-crispy-forms
+django-colorfield

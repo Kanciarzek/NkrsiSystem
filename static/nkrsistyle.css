@@ -1,0 +1,17 @@
+body {
+    margin-top: 5em;
+}
+
+a:hover {
+    text-decoration: none;
+    filter: brightness(85%);
+}
+
+.card {
+    text-align: center;
+}
+
+.card_img {
+    height: 48px;
+    width: 48px;
+}
