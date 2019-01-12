@@ -11,15 +11,29 @@ from nkrsiSystem import settings
 from .managers import UserManager
 
 
+class FAQ(models.Model):
+    question = models.CharField(_('question'), max_length=200)
+    order = models.IntegerField(_('order'), default=0)
+    answer = models.TextField(_('answer'), max_length=1000)
+
+    class Meta:
+        verbose_name = _('question')
+        verbose_name_plural = _('questions')
+
+    def __str__(self):
+        return self.question
+
+
 class FrontLink(models.Model):
     url = models.CharField(_('url'), max_length=200)
-    type = models.IntegerField(_('type'), choices=((0, 'remote'), (1, 'local'), (2, 'localWithAJAX')))
+    type = models.IntegerField(_('type'), choices=((1, _('withoutAJAX')), (2, _('localWithAJAX'))))
     icon = models.CharField(_('icon-name'), null=True, max_length=30)
     bgcolor = ColorField(_('bgcolor'), default='#FFFFFF')
     textcolor = ColorField(_('textcolor'), default='#000000')
     order = models.IntegerField(_('order'), default=0)
     title = models.CharField(_('title'), max_length=30, default=None)
     description = models.CharField(_('description'), max_length=100, null=True, default=None)
+    REQUIRED_FIELDS = [url, type, bgcolor, textcolor, title, order]
 
     class Meta:
         verbose_name = _('front link')
@@ -38,7 +52,7 @@ class User(AbstractBaseUser, PermissionsMixin):
     date_joined = models.DateTimeField(_('date joined'), auto_now_add=True, null=True, editable=True)
     is_candidate = models.BooleanField(_('candidate'), default=True)
     phone = models.IntegerField(_('phone number'), blank=True, null=True, default=None)
-    student_card_id = models.IntegerField(_('student card id'), blank=True, null=True, default=None)
+    student_card_id = models.CharField(_('student card id'), blank=True, null=True, default=None, max_length=20)
     objects = UserManager()
 
     USERNAME_FIELD = 'email'
@@ -77,6 +91,29 @@ class User(AbstractBaseUser, PermissionsMixin):
                                                 "last_name": self.last_name})
         if not result_of_add_to_slack.json()["ok"]:
             if request is None:
-                raise RuntimeError("Failed to send invitation. Error: " + result_of_add_to_slack.json()['error'])
+                raise RuntimeError(_("Failed to send invitation. Error: ") + result_of_add_to_slack.json()['error'])
             else:
-                messages.error(request, "Failed to send invitation. Error: " + result_of_add_to_slack.json()['error'])
+                messages.error(request, _("Failed to send invitation. Error: ") + result_of_add_to_slack.json()['error'])
+
+    def create_radius_user(self, request=None):
+
+        """
+        Creates user in radius database
+        :return:
+        """
+
+    def update_radius_password(self, request=None):
+        """
+        Updates password in radius database
+        :return:
+        """
+
+
+class DoorOpenLog(models.Model):
+
+    date = models.DateTimeField(_('date joined'), auto_now_add=True)
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
+    succeeded = models.BooleanField(_('succedded'))
+
+    def __str__(self):
+        return _('Door open request: ') + self.user.get_full_name()

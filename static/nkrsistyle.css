@@ -9,6 +9,7 @@ a:hover {
 
 .card {
     text-align: center;
+    height: 100%;
 }
 
 .card_img {
