@@ -8,8 +8,11 @@ a:hover {
 }
 
 .card {
-    text-align: center;
     height: 100%;
+}
+
+.card_center {
+    text-align: center;
 }
 
 .card_img {

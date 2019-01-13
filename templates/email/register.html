@@ -1,15 +1,20 @@
 {% extends 'email/base-mail.html' %}
 {% block content %}
-{% autoescape off %}
-Cześć, {{ username }},<br>
-witaj w Kole Robotyki i Sztucznej Inteligencji UJ, twoje konto do platformy koła zostało utworzone. Dostęp do niej jest możliwy przez sieć wi-fi koła za pomocą:
-{{ home }}<br>
+    {% autoescape off %}
+        Cześć, {{ username }},<br/>
+        witaj w Kole Robotyki i Sztucznej Inteligencji UJ, twoje konto do platformy koła zostało utworzone. Dostęp do
+        niej jest możliwy (obecnie wyłącznie) przez sieć wi-fi koła za pomocą:<br/>
+        {{ protocol }}://{{ domain }}.<br/>
 
-Hasło zostało wygenerowane automatycznie: {{ password }}. Możesz je zmienić po zalogowaniu.<br>
+        Loginem jest twój adres e-mail. Hasło zostało wygenerowane automatycznie: {{ password }}. Możesz je zmienić po zalogowaniu.<br/>
 
-W osobnym e-mailu powinieneś otrzymać zaproszenie do kołowego Slacka (o ile nie masz już tam konta) - używamy go do komunikacji w kole.<br>
-<br>
-Pozdrawiamy,<br>
-NKRSI UJ<br>
-{% endautoescape %}
+        Do logowania do wi-fi zostało utworzone konto radius. Dane do logowania są takie same, jak do systemu kołowego.
+        <br/>
+
+        W osobnym e-mailu powinieneś otrzymać zaproszenie do kołowego Slacka (o ile nie masz już tam konta) - używamy go
+        do komunikacji w kole.<br>
+        <br/>
+        Pozdrawiamy,<br/>
+        NKRSI UJ<br/>
+    {% endautoescape %}
 {% endblock %}

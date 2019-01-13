@@ -1,0 +1,28 @@
+{% extends 'base.html' %}
+{% load i18n static crispy_forms_tags %}
+{% block content %}
+    <h3>{% trans 'User' %} {{ user.get_full_name }}</h3>
+    <ul class="list-group list-group-flush">
+        {% if user == request.user or request.user.is_staff %}
+            <li class="list-group-item">{% trans 'Email' %}: {{ user.email }}</li>
+        {% endif %}
+        <li class="list-group-item">{% trans 'Name and surname' %}: {{ user.get_full_name }}</li>
+        <li class="list-group-item">{% trans 'Phone number' %}: {{ user.phone }}</li>
+        {% if user == request.user %}
+            <li class="list-group-item">{% trans 'Student card id' %}: {{ user.student_card_id }}</li>
+        {% endif %}
+        <li class="list-group-item">{% trans 'NKRSI join date' %}: {{ user.date_joined }}</li>
+        {% if user.is_candidate %}
+            <li class="list-group-item">{% trans 'Candidate memeber' %}</li>
+        {% elif user.is_staff %}
+            <li class="list-group-item">{% trans 'Staff memeber' %}</li>
+        {% else %}
+            <li class="list-group-item">{% trans 'Regular member' %}</li>
+        {% endif %}
+    </ul>
+    {% if user == request.user %}
+        <a class="btn btn-primary" role="button" aria-disabled="true"
+           href="{% url 'user-edit' %}">{% trans 'Edit profile' %}</a>
+    {% endif %}
+
+{% endblock %}

@@ -1,4 +1,3 @@
-from django.contrib.auth.models import AnonymousUser
 from django.test import TestCase, RequestFactory, Client
 
 from usersystem.models import User

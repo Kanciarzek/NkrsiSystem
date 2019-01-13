@@ -7,8 +7,7 @@
 {% block bootstrap4_content %}
     <div class="container">
         <div class="row">
-            <div class="col-md-4">
-            </div>
+            <div class="col-md-4"></div>
             <div class="col-md-4">
                 <form class="form-signin" action="{{ app_path }}" method="post" id="login-form">{% csrf_token %}
                     <img class="mb-4" src="{% static "logo.svg" %}" alt="logo" height="144px">
@@ -34,11 +33,6 @@
                             <a href="{{ password_reset_url }}">{% trans 'Forgotten your password or username?' %}</a>
                         </div>
                     {% endif %}
-{#                    <div class="checkbox mb-3">#}
-{#                        <label>#}
-{#                            <input type="checkbox" value="remember-me"> {% trans 'Remember me' %}#}
-{#                        </label>#}
-{#                    </div>#}
                     <button class="btn btn-lg btn-primary btn-block" type="submit">{% trans 'Log in' %}</button>
                     <p class="mt-3 mb-3 text-muted">&copy; NKRSI UJ</p>
                 </form>

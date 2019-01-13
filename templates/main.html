@@ -1,5 +1,5 @@
 {% extends 'base.html' %}
-{% load static %}
+{% load static i18n %}
 {% block content %}
     <div class="row">
         {% for link in links %}
@@ -9,7 +9,7 @@
                 {% else %}
                     <a href="{{ link.url }}">
                 {% endif %}
-                <div class="card" style="background-color: {{ link.bgcolor }}; color: {{ link.textcolor }}">
+                <div class="card card_center" style="background-color: {{ link.bgcolor }}; color: {{ link.textcolor }}">
                     <div class="card-body">
                         <h5 class="card-title">{{ link.title }}</h5>
                         <p class="card-text">{{ link.description }}</p>
@@ -31,7 +31,7 @@
                 success: function (data) {
                     console.log(data.ok);
                     if (!data.ok) {
-                        alert("Something went wrong!");
+                        alert({% trans "Something went wrong!" %});
                     }
                 }
             });

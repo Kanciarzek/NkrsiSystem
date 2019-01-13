@@ -40,6 +40,7 @@ INSTALLED_APPS = [
     'bootstrap4',
     'crispy_forms',
     'colorfield',
+    'phonenumber_field',
 ]
 
 CRISPY_TEMPLATE_PACK = 'bootstrap4'

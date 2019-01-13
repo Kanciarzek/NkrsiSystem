@@ -1,5 +1,5 @@
 {% extends 'bootstrap4/bootstrap4.html' %}
-{% load bootstrap4 static %}
+{% load bootstrap4 static i18n %}
 {% block bootstrap4_extra_head %}
     <link rel="stylesheet" type="text/css" href="{% static "nkrsistyle.css" %}">
     {% block extra_head %}{% endblock %}
@@ -14,16 +14,25 @@
         </button>
         <div class="collapse navbar-collapse" id="navbarCollapse">
             <ul class="navbar-nav mr-auto">
-                <li class="nav-item active">
-                    <a class="nav-link" href="{% url 'index' %}">Strona Główna</a>
-                </li>
-                <li class="nav-item active">
-                    <a class="nav-link" href="{% url 'user' %}">Moje konto</a>
-                </li>
-                {% if request.user.is_staff %}
-                <li class="nav-item active">
-                    <a class="nav-link" href="admin">Panel Administratora</a>
-                </li>
+                {% if request.user.is_authenticated %}
+                    <li class="nav-item active">
+                        <a class="nav-link" href="{% url 'index' %}">{% trans 'Home page' %}</a>
+                    </li>
+                    <li class="nav-item active">
+                        <a class="nav-link" href="{% url 'user' %}">{% trans 'My profile' %}</a>
+                    </li>
+                    <li class="nav-item active">
+                        <a class="nav-link" href="{% url 'user-list' %}">{% trans 'All users' %}</a>
+                    </li>
+                    {% if request.user.is_staff %}
+                        <li class="nav-item active">
+                            <a class="nav-link" href="{% url 'admin:index' %}">{% trans 'Admin Panel' %}</a>
+                        </li>
+                    {% endif %}
+
+                    <li class="nav-item active">
+                        <a class="nav-link" href="{% url 'logout' %}">{% trans 'Logout' %}</a>
+                    </li>
                 {% endif %}
             </ul>
         </div>

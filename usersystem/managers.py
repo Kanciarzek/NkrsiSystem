@@ -6,7 +6,7 @@ class UserManager(BaseUserManager):
 
     def _create_user(self, email, password, **extra_fields):
         """
-        Creates and saves a User with the given email and password.
+        Tworzy i zapisuje w bazie danych użytkownika.
         """
         if not email:
             raise ValueError('The given email must be set')
@@ -14,10 +14,12 @@ class UserManager(BaseUserManager):
         user = self.model(email=email, **extra_fields)
         user.set_password(password)
         user.save(using=self._db)
-        user.email_user("test", "test")
         return user
 
     def create_user(self, email, password=None, **extra_fields):
+        """
+        Tworzy i zapisuje w bazie danych użytkownika. Domyślnie nie jest to superużytkownik, ani członek zarządu.
+        """
         extra_fields.setdefault('is_superuser', False)
         extra_fields.setdefault('is_staff', False)
         if password is None:
@@ -25,6 +27,13 @@ class UserManager(BaseUserManager):
         return self._create_user(email, password, **extra_fields)
 
     def create_superuser(self, email, password, **extra_fields):
+        """
+        Tworzy superużytkownika.
+        :param email:
+        :param password:
+        :param extra_fields:
+        :return:
+        """
         extra_fields.setdefault('is_superuser', True)
         extra_fields.setdefault('is_staff', True)
 
