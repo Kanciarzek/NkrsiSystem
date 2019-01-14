@@ -19,3 +19,11 @@ a:hover {
     height: 48px;
     width: 48px;
 }
+
+.svg{
+    fill: currentColor;
+}
+
+g, path{
+   fill: currentColor;
+}

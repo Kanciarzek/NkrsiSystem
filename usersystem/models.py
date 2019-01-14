@@ -6,6 +6,7 @@ from django.db import models
 from django.core.mail import send_mail
 from django.contrib.auth.models import PermissionsMixin
 from django.contrib.auth.base_user import AbstractBaseUser
+from django.utils import timezone
 from django.utils.translation import ugettext_lazy as _
 from django.contrib import messages
 from colorfield.fields import ColorField
@@ -45,7 +46,7 @@ class FrontLink(models.Model):
                                help_text=_('"withoutAJAX" means standard link, "localWithAJAX" means local links '
                                            'accessible using AJAX technology (currently only door opening: '
                                            '"ajax/door" and projector turning on/off: "ajax/projector")'))
-    icon = models.CharField(_('icon-name'), null=True, max_length=30,
+    icon = models.CharField(_('icon-name'), null=True, max_length=30, blank=True,
                             help_text=_('Filename of icon from static/icon dir which will be presented on a card.'))
     bgcolor = ColorField(_('bgcolor'), default='#000000')
     textcolor = ColorField(_('textcolor'), default='#FFFFFF')
@@ -53,8 +54,7 @@ class FrontLink(models.Model):
                                 help_text=_('Order in which links will be presented on home page. '
                                             'The lower number the higher position.'))
     title = models.CharField(_('title'), max_length=30, default=None)
-    description = models.CharField(_('description'), max_length=100, null=True, default=None)
-    REQUIRED_FIELDS = [url, type, bgcolor, textcolor, title, order]
+    description = models.CharField(_('description'), max_length=100, null=True, default=None, blank=True)
 
     class Meta:
         verbose_name = _('front link')
@@ -76,9 +76,9 @@ class User(AbstractBaseUser, PermissionsMixin):
     last_name = models.CharField(_('last name'), max_length=30, blank=True)
     is_active = models.BooleanField(_('active'), default=True)
     is_staff = models.BooleanField(_('staff'), default=False)
-    date_joined = models.DateTimeField(_('date joined'), auto_now_add=True, null=True, editable=True)
+    date_joined = models.DateTimeField(_('date joined'), default=timezone.now, null=True, editable=True)
     is_candidate = models.BooleanField(_('candidate'), default=True)
-    phone = PhoneNumberField(_('phone'), blank=True)
+    phone = PhoneNumberField(_('phone'), blank=True, null=True)
     student_card_id = models.CharField(_('student card id'), blank=True, null=True, default=None, max_length=20,
                                        help_text=_('It is used to access Ślimak room. It is id of your student card and'
                                                    ' has nothing to do with your student id number. It can be read by a'
@@ -117,7 +117,6 @@ class User(AbstractBaseUser, PermissionsMixin):
     def invite_to_slack(self, request=None):
         """
         Wysyła zaproszenie do Slacka na podstawie adresu email.
-
         """
         result_of_add_to_slack = requests.post(settings.SLACK_API_INVITE_URL,
                                                {"token": settings.SLACK_TOKEN, "email": self.email,
@@ -176,7 +175,7 @@ class User(AbstractBaseUser, PermissionsMixin):
             connection = User.radius_connect()
             cursor = connection.cursor()
             sql = "UPDATE radcheck SET value = %s WHERE username = %s"
-            cursor.execute(sql, (hashlib.md5(clear_password.encode('utf-8')).hexdigest()), self.email)
+            cursor.execute(sql, (hashlib.md5(clear_password.encode('utf-8')).hexdigest(), self.email))
             connection.commit()
             cursor.close()
             if request is not None:
@@ -194,7 +193,7 @@ class DoorOpenLog(models.Model):
     drzwi, jest powiązany bezpośrednio z modelem członka za pomocą pola User. Administrator ma możliwość jedynie
     podejrzenia logów w panelu administracyjnym - nie ma możliwości ich modyfikacji.
     """
-    date = models.DateTimeField(_('request date'), auto_now_add=True)
+    date = models.DateTimeField(_('request date'), default=timezone.now, editable=True)
     user = models.ForeignKey(User, on_delete=models.CASCADE)
     succeeded = models.BooleanField(_('succeeded'))
 

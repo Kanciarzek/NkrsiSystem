@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2019-01-13 00:15+0100\n"
+"POT-Creation-Date: 2019-01-13 20:15+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -192,7 +192,7 @@ msgstr ""
 msgid "Email"
 msgstr ""
 
-#: .\templates\user\profile.html:9
+#: .\templates\user\profile.html:9 .\templates\user\user_list.html:8
 msgid "Name and surname"
 msgstr "Imię i nazwisko"
 
@@ -224,23 +224,23 @@ msgstr "Członek zwyczajny"
 msgid "Edit profile"
 msgstr "Edytuj profil"
 
-#: .\templates\user\user_list.html:8
-msgid "Name"
-msgstr "Imię"
-
 #: .\templates\user\user_list.html:9
 msgid "Is in staff"
 msgstr "Czy w zarządzie"
 
-#: .\usersystem\models.py:19 .\usersystem\models.py:26
+#: .\templates\user\user_list.html:23
+msgid "Yes,No"
+msgstr "Tak,Nie"
+
+#: .\usersystem\models.py:23 .\usersystem\models.py:30
 msgid "question"
 msgstr "pytanie"
 
-#: .\usersystem\models.py:20 .\usersystem\models.py:44
+#: .\usersystem\models.py:24 .\usersystem\models.py:53
 msgid "order"
 msgstr "kolejność"
 
-#: .\usersystem\models.py:21 .\usersystem\models.py:45
+#: .\usersystem\models.py:25 .\usersystem\models.py:54
 msgid ""
 "Order in which links will be presented on home page. The lower number the "
 "higher position."
@@ -248,31 +248,31 @@ msgstr ""
 "Kolejność, w jakiej linki będą pokazywały się na stronie głównej. Niższy "
 "numer oznacza wyższą pozycję."
 
-#: .\usersystem\models.py:23
+#: .\usersystem\models.py:27
 msgid "answer"
 msgstr "odpowiedź"
 
-#: .\usersystem\models.py:27
+#: .\usersystem\models.py:31
 msgid "questions"
 msgstr "pytania"
 
-#: .\usersystem\models.py:34
+#: .\usersystem\models.py:44
 msgid "url"
 msgstr "url"
 
-#: .\usersystem\models.py:35
+#: .\usersystem\models.py:45
 msgid "type"
 msgstr "typ"
 
-#: .\usersystem\models.py:35
+#: .\usersystem\models.py:45
 msgid "withoutAJAX"
 msgstr "bezAJAX"
 
-#: .\usersystem\models.py:35
+#: .\usersystem\models.py:45
 msgid "localWithAJAX"
 msgstr "lokalnyzAJAXem"
 
-#: .\usersystem\models.py:36
+#: .\usersystem\models.py:46
 msgid ""
 "\"withoutAJAX\" means standard link, \"localWithAJAX\" means local links "
 "accessible using AJAX technology (currently only door opening: \"ajax/door\" "
@@ -282,78 +282,78 @@ msgstr ""
 "wykorzystujący technologię AJAX (obecnie służy to tylko do otwierania drzwi: "
 "\"ajax/door\" oraz do włączania/wyłączania projektora: \"ajax/projector\")"
 
-#: .\usersystem\models.py:39
+#: .\usersystem\models.py:49
 msgid "icon-name"
 msgstr "plik z ikoną"
 
-#: .\usersystem\models.py:40
+#: .\usersystem\models.py:50
 msgid ""
 "Filename of icon from static/icon dir which will be presented on a card."
 msgstr ""
 "Nazwa pliku z ikoną z folderu static/icon, która będzie prezentowana na "
 "karcie"
 
-#: .\usersystem\models.py:42
+#: .\usersystem\models.py:51
 msgid "bgcolor"
 msgstr "kolor tła"
 
-#: .\usersystem\models.py:43
+#: .\usersystem\models.py:52
 msgid "textcolor"
 msgstr "kolor tekstu"
 
-#: .\usersystem\models.py:47
+#: .\usersystem\models.py:56
 msgid "title"
 msgstr "tytuł"
 
-#: .\usersystem\models.py:48
+#: .\usersystem\models.py:57
 msgid "description"
 msgstr "opis"
 
-#: .\usersystem\models.py:52
+#: .\usersystem\models.py:61
 msgid "front link"
 msgstr "link strony głównej"
 
-#: .\usersystem\models.py:53
+#: .\usersystem\models.py:62
 msgid "front links"
 msgstr "linki strony głównej"
 
-#: .\usersystem\models.py:60
+#: .\usersystem\models.py:75
 msgid "email address"
 msgstr "adres e-mail"
 
-#: .\usersystem\models.py:61
+#: .\usersystem\models.py:76
 msgid "first name"
 msgstr "imię"
 
-#: .\usersystem\models.py:62
+#: .\usersystem\models.py:77
 msgid "last name"
 msgstr "nazwisko"
 
-#: .\usersystem\models.py:63
+#: .\usersystem\models.py:78
 msgid "active"
 msgstr "aktywny"
 
-#: .\usersystem\models.py:64
+#: .\usersystem\models.py:79
 msgid "staff"
 msgstr "w zarządzie"
 
-#: .\usersystem\models.py:65
+#: .\usersystem\models.py:80
 msgid "date joined"
 msgstr "data dołączenia"
 
-#: .\usersystem\models.py:66
+#: .\usersystem\models.py:81
 msgid "candidate"
 msgstr "kandydat"
 
-#: .\usersystem\models.py:67
+#: .\usersystem\models.py:82
 msgid "phone"
 msgstr "numer telefonu"
 
-#: .\usersystem\models.py:68
+#: .\usersystem\models.py:83
 msgid "student card id"
 msgstr "id legitymacji studenckiej"
 
-#: .\usersystem\models.py:69
+#: .\usersystem\models.py:84
 msgid ""
 "It is used to access Ślimak room. It is id of your student card and has "
 "nothing to do with your student id number. It can be read by adevice from "
@@ -363,51 +363,54 @@ msgstr ""
 "karty z twoją legitymacją studencką i nie ma nic wspólnego z numerem albumu. "
 "Można ten nr odczytać wykorzystując czytnik dostępny w siedzibie NKRSI."
 
-#: .\usersystem\models.py:78
+#: .\usersystem\models.py:93
 msgid "user"
 msgstr "członek"
 
-#: .\usersystem\models.py:79
+#: .\usersystem\models.py:94
 msgid "users"
 msgstr "członkowie"
 
-#: .\usersystem\models.py:110 .\usersystem\models.py:113
+#: .\usersystem\models.py:129 .\usersystem\models.py:132
 msgid "Failed to send invitation. Error: "
 msgstr "Nie udało się wysłać zaproszenia do Slacka. Błąd: "
 
-#: .\usersystem\models.py:115
+#: .\usersystem\models.py:134
 msgid "Invitation to Slack has been sent"
 msgstr "Zaproszenie do Slacka zostało wysłane"
 
-#: .\usersystem\models.py:139
+#: .\usersystem\models.py:162
 msgid "User added to radius database."
 msgstr "Dodano użytkownika do bazy radius."
 
-#: .\usersystem\models.py:142 .\usersystem\models.py:144
-#: .\usersystem\models.py:161 .\usersystem\models.py:163
+#: .\usersystem\models.py:165 .\usersystem\models.py:167
+#: .\usersystem\models.py:187 .\usersystem\models.py:189
 msgid "Radius database error"
 msgstr "Błąd bazy radius"
 
-#: .\usersystem\models.py:158
+#: .\usersystem\models.py:184
 msgid "Password to radius changed."
 msgstr "Hasło do konta radius zmienione."
 
-#: .\usersystem\models.py:167
+#: .\usersystem\models.py:198
 msgid "request date"
 msgstr "data żądania"
 
-#: .\usersystem\models.py:169
+#: .\usersystem\models.py:200
 msgid "succeeded"
 msgstr "udało się"
 
-#: .\usersystem\models.py:172
+#: .\usersystem\models.py:203
 msgid "Door open request"
 msgstr "Żądanie otwarcia drzwi"
 
-#: .\usersystem\models.py:175
+#: .\usersystem\models.py:206
 msgid "door open request"
 msgstr "żądanie otwarcia drzwi"
 
-#: .\usersystem\models.py:176
+#: .\usersystem\models.py:207
 msgid "door open requests"
 msgstr "żądania otwarcia drzwi"
+
+#~ msgid "Name"
+#~ msgstr "Imię"

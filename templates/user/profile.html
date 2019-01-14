@@ -1,5 +1,5 @@
 {% extends 'base.html' %}
-{% load i18n static crispy_forms_tags %}
+{% load i18n l10n static crispy_forms_tags %}
 {% block content %}
     <h3>{% trans 'User' %} {{ user.get_full_name }}</h3>
     <ul class="list-group list-group-flush">
@@ -9,13 +9,14 @@
         <li class="list-group-item">{% trans 'Name and surname' %}: {{ user.get_full_name }}</li>
         <li class="list-group-item">{% trans 'Phone number' %}: {{ user.phone }}</li>
         {% if user == request.user %}
-            <li class="list-group-item">{% trans 'Student card id' %}: {{ user.student_card_id }}</li>
+            <li class="list-group-item">{% trans 'Student card id' %}: {% if user.student_card_id != None %}
+            {{ user.student_card_id }}{% endif %}</li>
         {% endif %}
-        <li class="list-group-item">{% trans 'NKRSI join date' %}: {{ user.date_joined }}</li>
-        {% if user.is_candidate %}
-            <li class="list-group-item">{% trans 'Candidate memeber' %}</li>
-        {% elif user.is_staff %}
+        <li class="list-group-item">{% trans 'NKRSI join date' %}: {{ user.date_joined|localize }}</li>
+        {% if user.is_staff %}
             <li class="list-group-item">{% trans 'Staff memeber' %}</li>
+        {% elif user.is_candidate %}
+            <li class="list-group-item">{% trans 'Candidate memeber' %}</li>
         {% else %}
             <li class="list-group-item">{% trans 'Regular member' %}</li>
         {% endif %}

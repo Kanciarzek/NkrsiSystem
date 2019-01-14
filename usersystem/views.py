@@ -1,11 +1,14 @@
 import json
+
 import requests
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.forms import PasswordChangeForm
+from django.contrib.auth.views import PasswordResetConfirmView
 from django.http import JsonResponse
 from django.shortcuts import render, redirect
 from pypjlink import Projector
 from requests import ConnectTimeout
+
 from nkrsiSystem import settings
 from usersystem.forms import EditProfileForm
 from .models import FrontLink, FAQ, User, DoorOpenLog
@@ -14,7 +17,7 @@ from .models import FrontLink, FAQ, User, DoorOpenLog
 @login_required
 def index(request):
     """
-    Generuje widok strony głównej wraz listą kart z linkami.
+    Generuje widok strony głównej wraz z listą kart z linkami.
     :param request:
     :return:
     """
@@ -180,3 +183,15 @@ def projector(request):
         return JsonResponse({'ok': True})
     except (Exception, TimeoutError):
         return JsonResponse({'ok': False})
+
+
+class MyPasswordResetConfirmView(PasswordResetConfirmView):
+    """
+    Klasa dziedzicząca po PasswordResetConfirmView w celu modyfikacji hasła do konta radius w trakcie resetowania hasła
+    przez użytkownika.
+    """
+
+    def form_valid(self, form):
+        user = form.user
+        user.update_radius_password(form.cleaned_data['new_password1'], self.request)
+        return super().form_valid(form)

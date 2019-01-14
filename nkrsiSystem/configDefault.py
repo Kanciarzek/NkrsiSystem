@@ -1,11 +1,13 @@
+import os
+
 SECRET_KEY = 'secret'
 
 # Database config
 DB_USER = 'postgres'
 DB_NAME = 'postgres'
 DB_PASSWORD = ''
-DB_HOST = 'localhost'
-DB_PORT = 5432
+DB_HOST = os.environ.get('POSTGRES_HOST', 'localhost')
+DB_PORT = os.environ.get('POSTGRES_PORT', 5432)
 
 # Slack config
 SLACK_TOKEN = 'token'

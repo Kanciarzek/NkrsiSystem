@@ -7,3 +7,4 @@ django-crispy-forms
 django-colorfield
 django-phonenumber-field
 phonenumberslite
+docutils

@@ -31,6 +31,7 @@ ALLOWED_HOSTS = []
 
 INSTALLED_APPS = [
     'django.contrib.admin',
+    'django.contrib.admindocs',
     'django.contrib.auth',
     'django.contrib.contenttypes',
     'django.contrib.sessions',
@@ -145,3 +146,5 @@ SLACK_API_INVITE_URL = config.SLACK_API_INVITE_URL
 
 PROJECTOR_IP = config.PROJECTOR_IP
 DOOR_ENDPOINT = config.DOOR_ENDPOINT
+
+LOGIN_REDIRECT_URL = '/'

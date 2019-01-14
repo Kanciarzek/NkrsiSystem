@@ -26,7 +26,7 @@ class DoorOpenLogAdmin(admin.ModelAdmin):
 class UserAdmin(admin.ModelAdmin):
     fields = (
         'email', ('first_name', 'last_name'), ('is_candidate', 'is_staff', 'is_active'), 'phone', 'student_card_id',
-        'date_join')
+        'date_joined')
 
     def save_model(self, request, obj: User, form, change):
         """

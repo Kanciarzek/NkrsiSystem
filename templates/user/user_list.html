@@ -20,7 +20,7 @@
                     {{ user.email }}
                 {% endif %}
                 </a></th>
-                <th scope="col">{{ user.is_staff }}</th>
+                <th scope="col">{{ user.is_staff|yesno:_("Yes,No") }}</th>
             </tr>
         {% endfor %}
         </tbody>
