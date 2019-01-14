@@ -3,6 +3,8 @@ import mock
 from django.test import TestCase, Client
 from requests import ConnectTimeout
 
+from usersystem import admin
+from usersystem.admin import UserAdmin
 from usersystem.models import *
 
 
@@ -135,9 +137,32 @@ class AjaxAndREST(TestCase):
         response = self.client.get('/ajax/projector')
         self.assertJSONEqual(response.content, json.dumps({'ok': True}))
 
+
 class FAQTest(TestCase):
-    pass
+    def setUp(self):
+        self.user = HomePageTestCase.prepare_user()
+        self.client = Client()
+        FAQ.objects.create(question="Jak żyć?", order=0, answer="Godnie.")
+        FAQ.objects.create(question="Jak nie żyć?", order=1, answer="Niegodnie.")
+
+    def test_faq_view(self):
+        self.client.force_login(self.user)
+        response = self.client.get('/faq')
+        self.assertContains(response, 'Jak żyć?')
+        self.assertContains(response, 'Jak nie żyć?')
+
 
 class AdminTest(TestCase):
     def setUp(self):
-        pass
+        self.user = HomePageTestCase.prepare_user()
+        self.user.is_superuser = True
+        self.user.save()
+
+    @mock.patch('usersystem.admin.User.email_user')
+    @mock.patch('usersystem.admin.User.invite_to_slack')
+    @mock.patch('usersystem.admin.User.create_radius_user')
+    def test_create_user(self, mock1, mock2, mock3):
+        user_admin = UserAdmin(User, None)
+        new_user = User.objects.create(email='a@a.pl', is_active=True)
+        user_admin.save_model(None, new_user, None, False)
+        self.assertEqual(User.objects.filter(email='a@a.pl')[0], new_user)
