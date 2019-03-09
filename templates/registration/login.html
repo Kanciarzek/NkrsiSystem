@@ -1,10 +1,13 @@
 {% extends "base.html" %}
-{% load i18n static crispy_forms_tags %}
+{% load bootstrap4 i18n static crispy_forms_tags %}
 {% block bootstrap4_extra_head %}
     <link rel="stylesheet" type="text/css" href="{% static "signin.css" %}">
     <title>NKRSI System</title>
 {% endblock %}
 {% block bootstrap4_content %}
+    <div class="container content">
+        {% autoescape off %}{% bootstrap_messages %}{% endautoescape %}
+    </div>
     <div class="container">
         <div class="row">
             <div class="col-md-4"></div>

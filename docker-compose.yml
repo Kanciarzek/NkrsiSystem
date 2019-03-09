@@ -3,7 +3,7 @@ services:
   nkrsi-system:
     build: .
     ports:
-      - "8000:8000"
+      - "80:80"
     environment:
       - POSTGRES_HOST=postgres
       - POSTGRES_PORT=5432
@@ -16,21 +16,7 @@ services:
       - ./postgres_config/radius-schema/ :/radius-schema/
     environment:
       config_file: '/docker-entrypoint-initdb.d/postgresql.conf'
-      POSTGRES_PASSWORD: 'robot'
-      RADIUS_DB_PASS: 'radpass'
+      POSTGRES_PASSWORD: 'robotUJ993'
     ports:
       - "5433:5432"
-  freeradius:
-    image: "freeradius/freeradius-server:latest"
-    depends_on:
-      - postgres
-    volumes:
-      - ./freeradius/raddb/clients.conf :/etc/raddb/clients.conf
-      - ./freeradius/raddb/radiusd.conf :/etc/raddb/radiusd.conf
-      - ./freeradius/raddb/mods-enabled/sql :/etc/raddb/mods-enabled/sql
-      - ./freeradius/raddb/sites-available/default :/etc/raddb/sites-available/default
-      - ./freeradius/raddb/sites-available/inner-tunnel :/etc/raddb/sites-available/inner-tunnel
-    ports:
-      - "1812:1812/udp"
-      - "1813:1813/udp"
-    command: bash -c "sleep 10; exec freeradius -f -X"
+

@@ -9,16 +9,20 @@
                 {% else %}
                     <a href="{{ link.url }}">
                 {% endif %}
-                <div class="card card_center" style="background-color: {{ link.bgcolor }}; color: {{ link.textcolor }}">
-                    <div class="card-body">
-                        <h5 class="card-title">{{ link.title }}</h5>
-                        <p class="card-text">{{ link.description }}</p>
-                        <img class="card_img svg" src="{% static "icon/"|add:link.icon %}"
-                             alt="{{ link.icon }}">
+                <div class="card_padding">
+                    <div class="card card_center"
+                         style="background-color: {{ link.bgcolor }}; color: {{ link.textcolor }}">
+                        <div class="card-body">
+                            <h5 class="card-title">{{ link.title }}</h5>
+                            <p class="card-text">{{ link.description }}</p>
+                            <img class="card_img svg" src="{% static "icon/"|add:link.icon %}"
+                                 alt="{{ link.icon }}">
+                        </div>
                     </div>
                 </div>
                 </a>
             </div>
+
         {% endfor %}
     </div>
 {% endblock %}
@@ -30,7 +34,11 @@
                 dataType: 'json',
                 success: function (data) {
                     if (!data.ok) {
-                        alert("{% trans "Something went wrong!" %}");
+                        if (typeof data.reason !== 'undefined') {
+                            alert("{% trans "You cannot do that because you are a candidate member!" %}");
+                        } else {
+                            alert("{% trans "Something went wrong!" %}");
+                        }
                     }
                 }
             });

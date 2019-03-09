@@ -1,5 +1,3 @@
-import hashlib
-
 import requests
 from django.contrib.auth.models import AbstractUser
 from django.db import models
@@ -13,7 +11,6 @@ from colorfield.fields import ColorField
 from phonenumber_field.modelfields import PhoneNumberField
 from nkrsiSystem import settings
 from .managers import UserManager
-import psycopg2
 
 
 class FAQ(models.Model):
@@ -83,6 +80,9 @@ class User(AbstractBaseUser, PermissionsMixin):
                                        help_text=_('It is used to access Ślimak room. It is id of your student card and'
                                                    ' has nothing to do with your student id number. It can be read by a'
                                                    'device from NKRSI headquarters.'))
+    function = models.CharField(_('function'), default="", blank=True, max_length=30,
+                                help_text=_('Position in NKRSI. If blank it will be depended on candidate status.'))
+
     objects = UserManager()
 
     USERNAME_FIELD = 'email'
@@ -130,61 +130,6 @@ class User(AbstractBaseUser, PermissionsMixin):
                                _("Failed to send invitation. Error: ") + result_of_add_to_slack.json()['error'])
         elif request is not None:
             messages.info(request, _("Invitation to Slack has been sent"))
-
-    @staticmethod
-    def radius_connect():
-        """
-        Zapewnia połączenie z bazą radius - może zostać w przyszłości zastąpione przez model.
-        :return: zwraca obiekt tożsamy z połączeniem z bazą danych.
-        """
-        return psycopg2.connect(host=settings.DATABASES['default']['HOST'], database='radius',
-                                user=settings.DATABASES['default']['USER'],
-                                password=settings.DATABASES['default']['PASSWORD'],
-                                port=str(settings.DATABASES['default']['PORT']))
-
-    def create_radius_user(self, clear_password, request=None):
-        """
-        Tworzy użytkownika w bazie freeradius.
-        :param clear_password: hasło w formie obiektu String
-        :param request: nieobowiązkowy parametr umożliwiający dodanie komunikatu w razie niepowodzenia. Gdy nie
-        zostaje podany, rzucany jest wyjątek.
-        """
-        try:
-            connection = User.radius_connect()
-            cursor = connection.cursor()
-            sql = "INSERT INTO radcheck VALUES (DEFAULT, %s, 'MD5-password', ':=', %s)"
-            cursor.execute(sql, (self.email, hashlib.md5(clear_password.encode('utf-8')).hexdigest()))
-            connection.commit()
-            cursor.close()
-            if request is not None:
-                messages.info(request, _('User added to radius database.'))
-        except (Exception, psycopg2.DatabaseError) as error:
-            if request is not None:
-                messages.error(request, _('Radius database error') + ': ' + error)
-            else:
-                raise psycopg2.DatabaseError(_('Radius database error') + ': ' + error)
-
-    def update_radius_password(self, clear_password, request=None):
-        """
-        Uaktualnia hasło w bazie radius.
-        :param clear_password: hasło w formie obiektu String
-        :param request: nieobowiązkowy parametr umożliwiający dodanie komunikatu w razie niepowodzenia. Gdy nie
-        zostaje podany, rzucany jest wyjątek.
-        """
-        try:
-            connection = User.radius_connect()
-            cursor = connection.cursor()
-            sql = "UPDATE radcheck SET value = %s WHERE username = %s"
-            cursor.execute(sql, (hashlib.md5(clear_password.encode('utf-8')).hexdigest(), self.email))
-            connection.commit()
-            cursor.close()
-            if request is not None:
-                messages.info(request, _('Password to radius changed.'))
-        except (Exception, psycopg2.DatabaseError) as error:
-            if request is not None:
-                messages.error(request, _('Radius database error') + ': ' + error)
-            else:
-                raise psycopg2.DatabaseError(_('Radius database error') + ': ' + error)
 
 
 class DoorOpenLog(models.Model):

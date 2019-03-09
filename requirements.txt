@@ -8,3 +8,4 @@ django-colorfield
 django-phonenumber-field
 phonenumberslite
 docutils
+whitenoise

@@ -8,10 +8,11 @@ from django.http import JsonResponse
 from django.shortcuts import render, redirect
 from pypjlink import Projector
 from requests import ConnectTimeout
-
+from django.contrib import messages
 from nkrsiSystem import settings
 from usersystem.forms import EditProfileForm
 from .models import FrontLink, FAQ, User, DoorOpenLog
+from django.utils.translation import ugettext_lazy as _
 
 
 @login_required
@@ -81,7 +82,8 @@ def change_password(request):
         form = PasswordChangeForm(data=request.POST, user=request.user)
         if form.is_valid():
             form.save()
-            request.user.update_radius_password(form.cleaned_data['new_password1'], request)
+            messages.info(request, _("Password changed"))
+            # request.user.update_radius_password(form.cleaned_data['new_password1'], request)
             return redirect('/account/me')
     else:
         form = PasswordChangeForm(user=request.user)
@@ -139,6 +141,8 @@ def door(request):
         'ok': False
     }
     """
+    if request.user.is_candidate:
+        return JsonResponse({'ok': False, 'reason': 'candidate'})
     log = DoorOpenLog()
     log.user = request.user
     try:
@@ -192,6 +196,6 @@ class MyPasswordResetConfirmView(PasswordResetConfirmView):
     """
 
     def form_valid(self, form):
-        user = form.user
-        user.update_radius_password(form.cleaned_data['new_password1'], self.request)
+        # user = form.user
+        # user.update_radius_password(form.cleaned_data['new_password1'], self.request)
         return super().form_valid(form)
