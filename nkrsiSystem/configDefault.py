@@ -1,5 +1,6 @@
 import os
 
+DEBUG_MODE = True
 SECRET_KEY = 'secret'
 
 # Database config
@@ -19,4 +20,5 @@ EMAIL_HOST_USER = ''
 EMAIL_HOST_PASSWORD = ''
 EMAIL_PORT = 587
 
-
+PROJECTOR_IP = ''
+DOOR_ENDPOINT = ''

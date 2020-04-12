@@ -1,22 +1,21 @@
 version: '3'
 services:
-  nkrsi-system:
-    build: .
-    ports:
-      - "80:80"
-    environment:
-      - POSTGRES_HOST=postgres
-      - POSTGRES_PORT=5432
-      - SUPER_EMAIL=pawlik9.hamster@gmail.com
-      - SUPER_PASSWORD=mypass1234
+#  nkrsi-system:
+#    build: .
+#    ports:
+#      - "80:80"
+#    environment:
+#      - POSTGRES_HOST=postgres
+#      - POSTGRES_PORT=5432
+#      - SUPER_EMAIL=pawlik9.hamster@gmail.com
+#      - SUPER_PASSWORD=mypass1234
   postgres:
     image: "postgres:11"
     volumes:
       - ./postgres_config/docker-entrypoint-initdb.d/ :/docker-entrypoint-initdb.d/
-      - ./postgres_config/radius-schema/ :/radius-schema/
     environment:
       config_file: '/docker-entrypoint-initdb.d/postgresql.conf'
       POSTGRES_PASSWORD: 'robotUJ993'
     ports:
-      - "5433:5432"
+      - "5432:5432"
 

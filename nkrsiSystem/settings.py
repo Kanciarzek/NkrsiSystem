@@ -23,7 +23,7 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 SECRET_KEY = config.SECRET_KEY
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = False
+DEBUG = config.DEBUG_MODE
 
 ALLOWED_HOSTS = ['home', '127.0.0.1']
 
@@ -178,3 +178,4 @@ PROJECTOR_IP = config.PROJECTOR_IP
 DOOR_ENDPOINT = config.DOOR_ENDPOINT
 
 LOGIN_REDIRECT_URL = '/'
+LOGIN_URL = '/internal/accounts/login'

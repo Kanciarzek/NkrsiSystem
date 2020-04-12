@@ -7,7 +7,6 @@ from django.contrib.auth.views import PasswordResetConfirmView
 from django.http import JsonResponse
 from django.shortcuts import render, redirect
 from pypjlink import Projector
-from requests import ConnectTimeout
 from django.contrib import messages
 from nkrsiSystem import settings
 from usersystem.forms import EditProfileForm
