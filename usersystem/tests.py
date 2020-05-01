@@ -1,9 +1,8 @@
 import json
 import mock
 from django.test import TestCase, Client
-from requests import ConnectTimeout
+from requests.exceptions import ConnectTimeout
 
-from usersystem import admin
 from usersystem.admin import UserAdmin
 from usersystem.models import *
 

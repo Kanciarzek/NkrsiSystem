@@ -3,8 +3,8 @@
 {% block bootstrap4_extra_head %}
     <link rel="stylesheet" type="text/css" href="{% static "nkrsistyle.css" %}">
     {% block extra_head %}{% endblock %}
-    <title>NKRSI System</title>
 {% endblock %}
+{% block bootstrap4_title %}System Naukowego Koła Robotyki i Sztucznej Inteligencji{% endblock %}
 {% block bootstrap4_content %}
     <nav class="navbar navbar-expand-md navbar-dark fixed-top bg-dark">
         <a class="navbar-brand" href="{% url 'index' %}">NKRSI</a>

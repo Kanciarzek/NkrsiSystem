@@ -2,21 +2,18 @@
 {% block content %}
     {% autoescape off %}
         Cześć, {{ username }},<br/>
-        witaj w Kole Robotyki i Sztucznej Inteligencji UJ, twoje konto do platformy koła zostało utworzone. Dostęp do
-        niej jest możliwy (obecnie wyłącznie) przez sieć wi-fi koła za pomocą:<br/>
+        witaj w Kole Robotyki i Sztucznej Inteligencji UJ, gratulujemy udanego wyboru. Twoje konto do platformy koła
+        zostało utworzone. Dostęp do niej jest możliwy za pomocą linku:<br/>
         {{ protocol }}://{{ domain }}.<br/>
         <br/>
-        Jeżeli jesteś członiem-kandydatem, to nie masz jeszcze możliwości otwierania drzwi kołowych - ta możliwość
-        zostaje odblokowana po zostaniu członkiem zwyczajnym (zazwyczaj po około 3 miesiącach pod warunkiem aktywności w
-        kole).<br/>
+        Jeżeli jesteś członkiem-kandydatem, to nie masz jeszcze możliwości otwierania drzwi do siedziby - ta możliwość
+        zostaje odblokowana po uzyskaniu statusu członka zwyczajnego. Jeżeli chcesz awansować, to musi zyskać to
+        aprobatę członków zarządu Koła. Zachęcamy do aktywnego udziału w życiu Koła!<br/>
         <br/>
         Loginem jest twój adres e-mail. Hasło zostało wygenerowane automatycznie: {{ password }}. Możesz je zmienić po
         zalogowaniu.<br/>
         <br/>
         W osobnym e-mailu powinieneś otrzymać zaproszenie do kołowego Slacka (o ile nie masz już tam konta) - używamy go
-        do komunikacji w kole.<br>
-        <br/>
-        Pozdrawiamy,<br/>
-        NKRSI UJ<br/>
+        do komunikacji w kole.<br/>
     {% endautoescape %}
 {% endblock %}

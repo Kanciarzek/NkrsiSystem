@@ -142,7 +142,7 @@ AUTH_PASSWORD_VALIDATORS = [
 # Internationalization
 # https://docs.djangoproject.com/en/2.1/topics/i18n/
 
-LANGUAGE_CODE = 'pl-pl'
+LANGUAGE_CODE = 'pl'
 TIME_ZONE = 'Europe/Warsaw'
 USE_I18N = True
 USE_L10N = True
@@ -179,3 +179,6 @@ DOOR_ENDPOINT = config.DOOR_ENDPOINT
 
 LOGIN_REDIRECT_URL = '/'
 LOGIN_URL = '/internal/accounts/login'
+
+FACEBOOK_TOKEN = config.FACEBOOK_TOKEN
+GOOGLE_MAPS_API_KEY = config.GOOGLE_MAPS_API_KEY

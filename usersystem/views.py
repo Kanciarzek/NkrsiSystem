@@ -8,6 +8,7 @@ from django.http import JsonResponse
 from django.shortcuts import render, redirect
 from pypjlink import Projector
 from django.contrib import messages
+
 from nkrsiSystem import settings
 from usersystem.forms import EditProfileForm
 from .models import FrontLink, FAQ, User, DoorOpenLog
@@ -82,7 +83,6 @@ def change_password(request):
         if form.is_valid():
             form.save()
             messages.info(request, _("Password changed"))
-            # request.user.update_radius_password(form.cleaned_data['new_password1'], request)
             return redirect('/account/me')
     else:
         form = PasswordChangeForm(user=request.user)
@@ -146,7 +146,7 @@ def door(request):
     log.user = request.user
     try:
         response = requests.get(settings.DOOR_ENDPOINT, timeout=3)
-    except (ConnectTimeout, requests.exceptions.ConnectionError):
+    except requests.exceptions.ConnectionError:
         log.succeeded = False
         log.save()
         return JsonResponse({'ok': False})
@@ -190,11 +190,9 @@ def projector(request):
 
 class MyPasswordResetConfirmView(PasswordResetConfirmView):
     """
-    Klasa dziedzicząca po PasswordResetConfirmView w celu modyfikacji hasła do konta radius w trakcie resetowania hasła
-    przez użytkownika.
+    Klasa dziedzicząca po PasswordResetConfirmView, niegdyś używana w celu modyfikacji hasła do konta radius w trakcie
+    resetowania hasła przez użytkownika.
     """
 
     def form_valid(self, form):
-        # user = form.user
-        # user.update_radius_password(form.cleaned_data['new_password1'], self.request)
         return super().form_valid(form)

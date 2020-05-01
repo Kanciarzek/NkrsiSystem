@@ -46,4 +46,13 @@ class UserAdmin(admin.ModelAdmin):
                                              "protocol": request.scheme, "domain": request.get_host})
             obj.email_user("Witamy w NKRSI", None, html_message=html_message)
             obj.invite_to_slack(request)
-        return super().save_model(request, obj, form, change)
+        else:
+            if form.initial['is_candidate'] and not form.cleaned_data['is_candidate']:
+                html_message = render_to_string("email/promote.html",
+                                                {"username": obj.get_full_name()})
+                obj.email_user("Zostajesz członkiem zwyczajnym w NKRSI", None, html_message=html_message)
+            if form.initial['is_active'] and not form.cleaned_data['is_active']:
+                html_message = render_to_string("email/degredate.html",
+                                                {"username": obj.get_full_name()})
+                obj.email_user("NKRSI żegna", None, html_message=html_message)
+        obj.save()

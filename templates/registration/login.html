@@ -13,7 +13,7 @@
             <div class="col-md-4"></div>
             <div class="col-md-4">
                 <form class="form-signin" action="{{ app_path }}" method="post" id="login-form">{% csrf_token %}
-                    <img class="mb-4" src="{% static "logo.svg" %}" alt="logo" height="144px">
+                    <a href="{% url 'front-index' %}"> <img class="mb-4" src="{% static "logo.svg" %}" alt="logo" height="144px"></a>
                     {% if user.is_authenticated %}
                         <p class="errornote">
                             {% blocktrans trimmed %}
